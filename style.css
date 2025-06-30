@@ -241,7 +241,7 @@ input[type="checkbox"]{
   transition: all .3s ease;
 }
 #toggleSwitch:checked + .switch::before{
-  transform: translateX(20px);
+  transform: translateX(25px);
   /* background-color: rgb(45, 45, 45); */
 }
 
