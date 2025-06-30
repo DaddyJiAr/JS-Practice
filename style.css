@@ -1,0 +1,202 @@
+h1{
+    font-size: 2em;
+}
+p{
+    font-size: 1em;
+}
+    
+/* .card{
+    border: 1px solid black;
+    width: 400px;
+    height: 600px;
+    margin: auto;
+    margin-top: 50px;
+    overflow: hidden;
+    border-radius: 20px;
+    animation: fade-in 1s ease;
+    transition: transform 0.3s ease;
+} */
+
+/* .inner-card{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.back{
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 0;
+    left: 0;    
+} */
+
+
+
+
+
+.card {
+  width: 400px;
+  height: 550px;
+  perspective: 1000px; 
+  cursor: pointer;
+  margin: auto;
+  margin-top: 50px;
+  position: relative;
+}
+
+.inner-card {
+    border-radius: 20px;
+    border: 1px solid black;
+
+    position: relative;
+    width: 100%;
+  height: 100%;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+}
+
+.front{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+.front, .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  overflow: hidden; 
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.front {
+  background-color: white;
+  color: black;
+  z-index: 2;
+}
+
+.back {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  transform: rotateY(180deg);
+  padding-left: 10px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.back a{
+  color: black;
+  padding: 10px 0;
+}
+
+.back h2::selection{ /* yung highlight */
+  background-color: transparent;
+}
+
+/* .card {
+  width: 400px;
+  height: 550px;
+  perspective: 1000px;
+  position: relative;
+}
+
+.inner-card {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  position: relative;
+  border: 4px solid black; 
+}
+
+.card-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  overflow: hidden; 
+  box-sizing: border-box;
+}
+
+.front {
+  background: white;
+}
+
+.back {
+  background: lightgray;
+  transform: rotateY(180deg);
+} */
+
+
+
+
+.img-container {
+  width: 400px;
+  overflow: hidden;
+}
+
+.img-container img {
+  /* width: 100%;
+  height: 100%; */
+  object-fit: cover;           
+  transition: transform 1s ease;
+}
+
+/* .card:hover{
+    animation: bounce 2s ease-in-out infinite; // di pwede lagay kasi umay pag dalawa animation
+} */
+
+.card:hover img{
+    transform: scale(1.1);
+}
+
+.card:hover .socials {
+    opacity: 1;
+    padding: 20px;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden; 
+    transition: padding 1s ease, opacity 1s ease; 
+}
+
+.socials a{
+    margin: 0 10px;
+}
+
+.card.flip{
+    transform: rotateY(180deg);
+}
+.inner-card.flip{
+    transform: rotateY(180deg);
+}
+
+@keyframes bounce {
+    0%, 100%{
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+@keyframes fade-in {
+    0%{
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
