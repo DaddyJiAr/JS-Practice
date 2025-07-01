@@ -1,0 +1,89 @@
+*{
+    font-family: Roboto;
+}
+
+textarea{
+    resize: none;
+}
+
+input[type="text"]{
+    text-align: center;
+    width: 200px;
+}
+
+.pop-up{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create{
+    margin: auto;
+    background-color: rgb(200, 56, 95);
+    padding-top: 40px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.select, .delete{
+    color: white;
+    display: inline;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.select, .delete{
+    cursor: pointer;
+}
+
+.create .select:hover{
+    box-shadow: 0 0 10px 8px rgb(222, 66, 107);
+    /* offset xandy blur and spread */
+    background-color: rgb(222, 66, 107);
+}
+
+.buttons button{
+    padding: 5px 20px;
+    margin: 0 20px;
+}
+
+.edit{
+    background-color: rgb(14, 193, 134);
+    padding: 10px 30px;
+    margin: auto;
+}
+
+.edit p{
+    margin: 0;
+}
+
+.edit .select{
+    margin: 5px 0;
+}
+.edit .select:hover{
+    background-color: rgb(29, 224, 159);
+    box-shadow: 0 0 10px 8px rgb(29, 224, 159);
+}
+
+.edit .delete{
+    color: red;
+    padding: 4px 12px;
+}
+
+.delete:hover,
+.delete:focus {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  text-shadow: 
+  0 0 5px red,
+  0 0 10px red,
+  0 0 20px rgb(233, 105, 118);
+  /* shadow ni ai */
+}
+
+.select::selection, .delete::selection{
+    background-color: transparent;
+}

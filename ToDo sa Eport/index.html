@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+    </style>
+  </head>
+  <body>
+    <div class="create pop-up">
+        <input type="text" id="title-input" placeholder="Title of To-Do">
+        <p class="select">Select Color Theme</p>
+        <div class="buttons">
+            <button>Add</button>
+            <button>Cancel</button>
+        </div>
+    </div>
     
-
+    <div class="edit pop-up">
+        <p class="select">Select Color Theme</p>
+        <p class="delete">Delete</p>
+    </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
