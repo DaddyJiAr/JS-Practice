@@ -10,18 +10,35 @@
     </style>
   </head>
   <body>
-    <div class="create pop-up">
-        <input type="text" id="title-input" placeholder="Title of To-Do">
-        <p class="select">Select Color Theme</p>
-        <div class="buttons">
-            <button>Add</button>
-            <button>Cancel</button>
-        </div>
+    <div class="sidebar">
+      <img src="assets/Logo.png" alt="Logo" class="logo" width="48px" />
+      <div class="actions">
+        <h3>+ New To-Do</h3>
+        <h3>+ Search To-Dos</h3>
+      </div>
+      <div class="to-dos">
+        <h5>To-Dos</h4>
+      </div>
     </div>
-    
+    <div class="main">
+      <div class="top-bar">
+        <h2 class="title">Title</h2>
+        <h2 class="settings">...</h2>
+      </div>
+    </div>
+
+    <div class="create pop-up">
+      <input type="text" id="title-input" placeholder="Title of To-Do" />
+      <p class="select">Select Color Theme</p>
+      <div class="buttons">
+        <button>Add</button>
+        <button>Cancel</button>
+      </div>
+    </div>
+
     <div class="edit pop-up">
-        <p class="select">Select Color Theme</p>
-        <p class="delete">Delete</p>
+      <p class="select">Select Color Theme</p>
+      <p class="delete">Delete</p>
     </div>
 
     <script src="script.js"></script>
