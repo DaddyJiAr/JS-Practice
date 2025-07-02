@@ -16,6 +16,7 @@ textarea{
 
 input[type="text"]{
     text-align: center;
+    color: black;
     width: 200px;
 }
 
@@ -118,8 +119,9 @@ input[type="text"]{
 .sidebar h3{
     cursor: pointer;
     width: fit-content;
-    border: 1px solid;
+    /* border: 1px solid; */
     margin: 10px 0;
+    /* color: rgb(193, 186, 186); */
 }
 
 .main{

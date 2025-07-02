@@ -4,6 +4,33 @@ const edit_button = document.getElementById('edit_button');
 const edit_pop_up = document.getElementById('edit_pop_up');
 
 
+
+let todos;
+
+class ToDo{
+    static todo_id = Number(localStorage.getItem('todo_id')) || 0; // get id from localstorage, else 0
+    constructor(title, description){
+        this.id = ToDo.todo_id;
+        this.title = title;
+        this.description = description;
+        ToDo.todo_id++;
+        localStorage.setItem('todo_id', ToDo.todo_id);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', function (){
+    todos = JSON.parse(this.localStorage.getItem('todos')) || [];
+    const todos_parent = document.getElementById('to-dos');
+    if(todos.length !== 0){
+        refreshList();
+    }else{
+        const p_tag = document.createElement('p');
+        p_tag.textContent = 'No todos here.';
+        p_tag.style.color = 'rgb(193, 186, 186)';
+        todos_parent.append(p_tag);
+    }
+});
+
 add_todo.addEventListener('click', function (event){
     event.stopPropagation();
     let state = create.style.display;
@@ -14,6 +41,36 @@ add_todo.addEventListener('click', function (event){
         create.style.display = 'none'; // para if i-click ulet, maclose
     }
 });
+
+function add(){
+    const input_element = document.getElementById('title-input');
+    const input = String(input_element.value);
+    if(input.length === 0){
+        return alert("Title can't be empty");
+    }
+    input_element.value = '';
+    create.style.display = 'none';
+
+    todos.push(new ToDo(input,''));
+    localStorage.setItem('todos', JSON.stringify(todos));
+    refreshList();
+}
+
+function refreshList(){
+    const todos_parent = document.getElementById('to-dos');
+    const p_tags = todos_parent.querySelectorAll('p');
+    p_tags.forEach(element => {
+        element.remove();
+    });
+
+    todos.forEach(element => {
+        let p_tag = document.createElement('p');
+        p_tag.textContent = element.title;
+        p_tag.style.color = 'white';
+        todos_parent.append(p_tag);
+    });
+
+}
 
 function cancel(){
     create.style.display = 'none';
