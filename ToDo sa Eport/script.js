@@ -2,6 +2,19 @@ const add_todo = document.getElementById('add-todo');
 const create = document.getElementById('create');
 const edit_button = document.getElementById('edit_button');
 const edit_pop_up = document.getElementById('edit_pop_up');
+const description_textarea = document.getElementById('description');
+
+let todo_index_selected = -1;
+
+// const checker = setInterval(function(){
+//     console.log(todo_index_selected);
+//     if(todo_index_selected !== -1){
+//         description_textarea.style.display = 'block';
+//     }else{
+//         // description_textarea.style.display = 'block';
+//     }
+// }, 500);
+
 
 
 // localStorage.removeItem('todos');
@@ -12,6 +25,11 @@ const edit_pop_up = document.getElementById('edit_pop_up');
 //     title.value = element.textContent;
 //     console.log(element.textContent);
 // };
+
+description_textarea.addEventListener('input', function (){
+    todos[todo_index_selected].description = this.value;
+    localStorage.setItem('todos', JSON.stringify(todos));
+});
 
 let todos;
 
@@ -37,6 +55,15 @@ window.addEventListener('DOMContentLoaded', function (){
         p_tag.style.color = 'rgb(193, 186, 186)';
         todos_parent.append(p_tag);
     }
+    todo_index_selected = 0;
+    console.log(todos[todo_index_selected].title);
+});
+
+
+description_textarea.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+    todos[todo_index_selected].description = description_textarea.value;
 });
 
 add_todo.addEventListener('click', function (event){
@@ -75,20 +102,27 @@ function add(){
 function refreshList(){
     const todos_parent = document.getElementById('to-dos');
     const p_tags = todos_parent.querySelectorAll('p');
+    const title = document.getElementById('title');
+    
     p_tags.forEach(element => {
         element.remove();
     });
 
     todos.forEach(element => {
-        console.log(element.id);
         let p_tag = document.createElement('p');
         p_tag.textContent = element.title;
         p_tag.style.color = 'white';
         p_tag.classList.add('titles');
+        p_tag.addEventListener('click', function() {
+            title.value = element.title;
+            todo_index_selected = element.id;
+            description_textarea.style.display = 'block';
+            description_textarea.value = element.description;
+        });
         todos_parent.append(p_tag);
     });
 
-    addTitleEvents();
+    // addTitleEvents();
 
 }
 
