@@ -107,11 +107,13 @@ input[type="text"]{
 
 .sidebar, .main{
     height: 100%;
-    width: 300px;
 }
 
 .sidebar{
     background-color: rgb(56, 52, 52);
+    width: 300px;
+    max-width: 250px;
+    /* max-width: 250px; */
 }
 
 
@@ -179,4 +181,8 @@ input[type="text"]{
 }
 .top-bar .settings::selection{
     background-color: transparent;
+}
+
+.titles{
+    cursor: pointer;
 }

@@ -22,7 +22,7 @@
     </div>
     <div class="main">
       <div class="top-bar">
-        <input type="text" class="title" />
+        <input type="text" class="title" id="title" />
         <h2 class="settings" id="edit_button">...</h2>
         <div class="edit pop-up" id="edit_pop_up">
           <p class="select">Select Color Theme</p>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="create pop-up" id="create">
-      <input type="text" id="title-input" placeholder="Title of To-Do" />
+      <input type="text" id="title-input" placeholder="Title of To-Do" onkeydown="onEnter(event)"/>
       <p class="select">Select Color Theme</p>
       <div class="buttons">
         <button onclick="add()">Add</button>

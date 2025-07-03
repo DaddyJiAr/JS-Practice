@@ -4,6 +4,14 @@ const edit_button = document.getElementById('edit_button');
 const edit_pop_up = document.getElementById('edit_pop_up');
 
 
+// localStorage.removeItem('todos');
+// localStorage.removeItem('todo_id');
+
+// const handleTitleClick = function (element){
+//     const title = document.getElementById('title');
+//     title.value = element.textContent;
+//     console.log(element.textContent);
+// };
 
 let todos;
 
@@ -33,14 +41,22 @@ window.addEventListener('DOMContentLoaded', function (){
 
 add_todo.addEventListener('click', function (event){
     event.stopPropagation();
+    const input_element = document.getElementById('title-input');
     let state = create.style.display;
     if(state == 'none' || state == ''){
         create.style.display = 'flex';
         edit_pop_up.style.display = 'none';
+        input_element.focus();
     }else{
         create.style.display = 'none'; // para if i-click ulet, maclose
     }
 });
+
+function onEnter(event){
+    if(event.key == 'Enter'){
+        add();
+    }
+}
 
 function add(){
     const input_element = document.getElementById('title-input');
@@ -64,11 +80,15 @@ function refreshList(){
     });
 
     todos.forEach(element => {
+        console.log(element.id);
         let p_tag = document.createElement('p');
         p_tag.textContent = element.title;
         p_tag.style.color = 'white';
+        p_tag.classList.add('titles');
         todos_parent.append(p_tag);
     });
+
+    addTitleEvents();
 
 }
 
@@ -85,6 +105,7 @@ edit_button.addEventListener('click', function (event){
         edit_pop_up.style.display = 'none'; // para if i-click ulet, maclose
     }
 });
+
 document.addEventListener('click', function (event){
     let state = edit_pop_up.style.display;
     // edit
@@ -95,3 +116,14 @@ document.addEventListener('click', function (event){
         create.style.display = 'none';
     }
 });
+
+function addTitleEvents(){
+    const title_elements = document.getElementsByClassName('titles'); 
+    Array.from(title_elements).forEach(element => { //Array.from() kasi HTML Collection dsaw yung return ni by classname
+        element.addEventListener('click', function () {
+            const title = document.getElementById('title');
+            title.value = element.textContent;
+            console.log(element.textContent);
+        });
+    });
+}
