@@ -3,6 +3,8 @@ const create = document.getElementById('create');
 const edit_button = document.getElementById('edit_button');
 const edit_pop_up = document.getElementById('edit_pop_up');
 const description_textarea = document.getElementById('description');
+const title_input = document.getElementById('title-input');
+const title = document.getElementById('title');
 
 let todo_index_selected = -1;
 
@@ -31,6 +33,12 @@ description_textarea.addEventListener('input', function (){
     localStorage.setItem('todos', JSON.stringify(todos));
 });
 
+title.addEventListener('input', function(){
+    todos[todo_index_selected].title = this.value;
+    localStorage.setItem('todos', JSON.stringify(todos));
+    refreshList();
+});
+
 let todos;
 
 class ToDo{
@@ -55,8 +63,7 @@ window.addEventListener('DOMContentLoaded', function (){
         p_tag.style.color = 'rgb(193, 186, 186)';
         todos_parent.append(p_tag);
     }
-    todo_index_selected = 0;
-    console.log(todos[todo_index_selected].title);
+    title.disabled = true;
 });
 
 
@@ -68,12 +75,11 @@ description_textarea.addEventListener('input', function() {
 
 add_todo.addEventListener('click', function (event){
     event.stopPropagation();
-    const input_element = document.getElementById('title-input');
     let state = create.style.display;
     if(state == 'none' || state == ''){
         create.style.display = 'flex';
         edit_pop_up.style.display = 'none';
-        input_element.focus();
+        title_input.focus();
     }else{
         create.style.display = 'none'; // para if i-click ulet, maclose
     }
@@ -86,12 +92,11 @@ function onEnter(event){
 }
 
 function add(){
-    const input_element = document.getElementById('title-input');
-    const input = String(input_element.value);
+    const input = String(title_input.value);
     if(input.length === 0){
         return alert("Title can't be empty");
     }
-    input_element.value = '';
+    title_input.value = '';
     create.style.display = 'none';
 
     todos.push(new ToDo(input,''));
@@ -108,20 +113,20 @@ function refreshList(){
         element.remove();
     });
 
-    todos.forEach(element => {
+    for(let i = todos.length - 1; i >= 0; i--){
         let p_tag = document.createElement('p');
-        p_tag.textContent = element.title;
+        p_tag.textContent = todos[i].title;
         p_tag.style.color = 'white';
         p_tag.classList.add('titles');
         p_tag.addEventListener('click', function() {
-            title.value = element.title;
-            todo_index_selected = element.id;
+            title.value = todos[i].title;
+            todo_index_selected = todos[i].id;
             description_textarea.style.display = 'block';
-            description_textarea.value = element.description;
+            description_textarea.value = todos[i].description;
+            title.disabled = false;
         });
         todos_parent.append(p_tag);
-    });
-
+    }
     // addTitleEvents();
 
 }
