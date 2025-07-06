@@ -5,6 +5,7 @@ const edit_pop_up = document.getElementById('edit_pop_up');
 const description_textarea = document.getElementById('description');
 const title_input = document.getElementById('title-input');
 const title = document.getElementById('title');
+const delete_element = document.getElementById('delete');
 
 let todo_index_selected = -1;
 
@@ -37,6 +38,15 @@ title.addEventListener('input', function(){
     todos[todo_index_selected].title = this.value;
     localStorage.setItem('todos', JSON.stringify(todos));
     refreshList();
+});
+
+delete_element.addEventListener('click', function (){
+    todos.splice(todo_index_selected, 1);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    todo_index_selected = todos.length - 1;
+    refreshList();
+    edit_pop_up.style.display = 'none';
+    showTodo(todo_index_selected);
 });
 
 let todos;
@@ -107,7 +117,6 @@ function add(){
 function refreshList(){
     const todos_parent = document.getElementById('to-dos');
     const p_tags = todos_parent.querySelectorAll('p');
-    const title = document.getElementById('title');
     
     p_tags.forEach(element => {
         element.remove();
@@ -119,17 +128,22 @@ function refreshList(){
         p_tag.style.color = 'white';
         p_tag.classList.add('titles');
         p_tag.addEventListener('click', function() {
-            title.value = todos[i].title;
-            todo_index_selected = todos[i].id;
-            description_textarea.style.display = 'block';
-            description_textarea.value = todos[i].description;
-            title.disabled = false;
+            showTodo(i);
         });
         todos_parent.append(p_tag);
     }
     // addTitleEvents();
 
 }
+
+function showTodo(index){
+    title.value = todos[index].title;
+    todo_index_selected = todos[index].id;
+    description_textarea.style.display = 'block';
+    description_textarea.value = todos[index].description;
+    title.disabled = false;
+}
+
 
 function cancel(){
     create.style.display = 'none';
