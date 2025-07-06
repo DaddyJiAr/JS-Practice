@@ -35,18 +35,23 @@ description_textarea.addEventListener('input', function (){
 });
 
 title.addEventListener('input', function(){
-    todos[todo_index_selected].title = this.value;
-    localStorage.setItem('todos', JSON.stringify(todos));
-    refreshList();
+    if(this.value.length !== 0){
+        todos[todo_index_selected].title = this.value;
+        localStorage.setItem('todos', JSON.stringify(todos));
+        refreshList();
+    }
 });
 
 delete_element.addEventListener('click', function (){
     todos.splice(todo_index_selected, 1);
     localStorage.setItem('todos', JSON.stringify(todos));
-    todo_index_selected = todos.length - 1;
-    refreshList();
-    edit_pop_up.style.display = 'none';
-    showTodo(todo_index_selected);
+    noneSelected();
+    if(todos.length === 0){
+        refreshList();
+        noTodos();
+    }else{
+        refreshList();
+    }
 });
 
 let todos;
@@ -64,24 +69,39 @@ class ToDo{
 
 window.addEventListener('DOMContentLoaded', function (){
     todos = JSON.parse(this.localStorage.getItem('todos')) || [];
-    const todos_parent = document.getElementById('to-dos');
+    noneSelected();
     if(todos.length !== 0){
         refreshList();
     }else{
-        const p_tag = document.createElement('p');
-        p_tag.textContent = 'No todos here.';
-        p_tag.style.color = 'rgb(193, 186, 186)';
-        todos_parent.append(p_tag);
+        noTodos();
     }
     title.disabled = true;
 });
 
+function noneSelected(){
+    description_textarea.style.display = 'none';
+    title.value = '';
+    title.disabled = true;
+    todo_index_selected = -1;
+    edit_pop_up.style.display = 'none';
+    edit_button.style.display = 'none';
+}
 
-description_textarea.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
+function noTodos(){
+    const todos_parent = document.getElementById('to-dos');
+    const p_tag = document.createElement('p');
+    p_tag.textContent = 'No todos here.';
+    p_tag.style.color = 'rgb(193, 186, 186)';
+    todos_parent.append(p_tag);
+}
+
+function stretchTextArea(){
+    description_textarea.style.height = 'auto';
+    description_textarea.style.height = (description_textarea.scrollHeight) + 'px';
     todos[todo_index_selected].description = description_textarea.value;
-});
+}
+
+description_textarea.addEventListener('input', stretchTextArea);
 
 add_todo.addEventListener('click', function (event){
     event.stopPropagation();
@@ -132,22 +152,24 @@ function refreshList(){
         });
         todos_parent.append(p_tag);
     }
-    // addTitleEvents();
 
 }
 
 function showTodo(index){
     title.value = todos[index].title;
-    todo_index_selected = todos[index].id;
+    todo_index_selected = todos.indexOf(todos[index]);
     description_textarea.style.display = 'block';
     description_textarea.value = todos[index].description;
+    edit_button.style.display = 'block';
     title.disabled = false;
+    stretchTextArea();
 }
 
 
 function cancel(){
     create.style.display = 'none';
 }
+
 edit_button.addEventListener('click', function (event){
     event.stopPropagation();
     let state = edit_pop_up.style.display;
@@ -169,14 +191,3 @@ document.addEventListener('click', function (event){
         create.style.display = 'none';
     }
 });
-
-function addTitleEvents(){
-    const title_elements = document.getElementsByClassName('titles'); 
-    Array.from(title_elements).forEach(element => { //Array.from() kasi HTML Collection dsaw yung return ni by classname
-        element.addEventListener('click', function () {
-            const title = document.getElementById('title');
-            title.value = element.textContent;
-            console.log(element.textContent);
-        });
-    });
-}
