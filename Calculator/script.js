@@ -5,7 +5,7 @@ const clear = document.getElementById('clear');
 const remove = document.getElementById('remove');
 const validKeys = [
         '1','2','3','4','5','6','7','8','9','0',
-        '.','π','ⓧ','AC','*','÷','+','-','Ans','=',
+        '.','π','ⓧ','AC','*','/','+','-','Ans','=',
     ];
 
 formula.addEventListener('keypress', function(event){
@@ -15,6 +15,11 @@ formula.addEventListener('keypress', function(event){
 formula.addEventListener('input', clean);
 formula.addEventListener('keydown', function (event){
     if(event.key === "Enter") calculate();
+    if(event.key === ".") {
+        event.preventDefault();
+        checkPeriod(".");
+    }
+    
 });
 
 equal.addEventListener('click', calculate);
@@ -30,11 +35,9 @@ function removeFunc(){
 
 
 function calculate(){
-    let nums = formula.value.match(/(\d+(?:\.\d+)?)|[\+\-\*\÷]/g);
+    let nums = formula.value.match(/(\d+(?:\.\d+)?)|[\+\-\*\/]/g);
     if(nums && calculatable(formula.value.charAt(formula.value.length-1))){
-        console.log(nums);
         nums = handleMD(nums);
-        console.log(nums);
         nums = handlePM(nums);
         console.log(nums);
 
@@ -56,7 +59,7 @@ function handleMD(numList){
                 numList[i] = "0";
                 i+=2;
                 m_or_d = true;
-            }else if(numList[i] === "÷"){
+            }else if(numList[i] === "/"){
                 next_num = numList[i+1]
                 numList[i+1] = Number(previous_num) / Number(next_num);
                 numList[i-1] = "0";
@@ -121,7 +124,7 @@ function calculatable(last){ // lol
 }
 
 function clean() {
-    let clean = formula.value.replace(/[^0-9+\-*÷.]/g, ""); //dikolam
+    let clean = formula.value.replace(/[^0-9+\-*/.]/g, ""); //dikolam
     formula.value = clean;
 }
 
@@ -150,7 +153,7 @@ function check(key){
 
 function checkPeriod(period){
     const nums = formula.value.match(/\d+(?:\.\d+)?/g); // matches any number with decimal optional
-    if(!Number.isInteger(Number(nums[nums.length-1]))){
+    if(nums && !Number.isInteger(Number(nums[nums.length-1]))){
         return;
     }
     if(period !== "."){
