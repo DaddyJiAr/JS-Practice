@@ -3,6 +3,7 @@ const buttons = document.getElementsByClassName('button');
 const equal = document.getElementById('equal');
 const clear = document.getElementById('clear');
 const remove = document.getElementById('remove');
+const answer = document.getElementById('answer');
 const validKeys = [
         '1','2','3','4','5','6','7','8','9','0',
         '.','π','ⓧ','AC','*','/','+','-','Ans','=',
@@ -17,19 +18,23 @@ formula.addEventListener('keydown', function (event){
     if(event.key === "Enter") calculate();
     if(event.key === ".") {
         event.preventDefault();
-        checkPeriod(".");
+        checkPeriod("."); 
     }
-    
 });
 
 equal.addEventListener('click', calculate);
 clear.addEventListener('click', function(){
     formula.value = "";
+    answer.innerHTML = "0";
+    formula.focus();
 });
 remove.addEventListener('click', removeFunc);
 
 function removeFunc(){
-    if(formula.value.length === 0) return;
+    formula.focus();
+    if(formula.value.length === 0) {
+        return;
+    }
     formula.value = formula.value.substr(0, formula.value.length-1);
 }
 
@@ -40,6 +45,7 @@ function calculate(){
         nums = handleMD(nums);
         nums = handlePM(nums);
         console.log(nums);
+        answer.innerHTML = nums[0];
 
     }else return;
 }
@@ -133,7 +139,7 @@ function check(key){
         case "+":
         case "-":
         case "*":
-        case "÷":
+        case "/":
             if(formula.value.length === 0){
                 return false;
             }
@@ -141,7 +147,7 @@ function check(key){
                 case "+":
                 case "-":
                 case "*":
-                case "÷":
+                case "/":
                     return false;
                 default:
                     return true;
@@ -167,7 +173,7 @@ function checkPeriod(period){
         case "+":
         case "-":
         case "*":
-        case "÷":
+        case "/":
             formula.value += "0.";
             return;
     }

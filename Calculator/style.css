@@ -24,6 +24,7 @@ main{
     width: 298px;
     /* width: 50%; */
     border: 1px solid;
+    position: relative;
 }
 
 input[type="text"]{
@@ -31,7 +32,7 @@ input[type="text"]{
     height: 50px;
     padding: 0;
     outline: none;
-    font-size: 1.5em;
+    font-size: 1.3em;
     text-overflow: ellipsis;
 }
 
@@ -47,4 +48,14 @@ button{
     text-align: center;
     line-height: 30px;
     padding: 0;
+}
+
+#answer{
+    margin: 0;
+    /* padding: 3px 0; */
+    /* background-color: red; */
+    position: absolute;
+    z-index: 20;
+    top: 30px;
+    right: 5px;
 }
