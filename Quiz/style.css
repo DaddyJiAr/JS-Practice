@@ -1,0 +1,10 @@
+ul{
+    padding: 0;
+    display: flex;  
+    width: fit-content;
+    flex-wrap: wrap;
+}
+
+ul div{
+    width: 40%;
+}

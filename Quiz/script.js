@@ -26,15 +26,36 @@ async function fetch_questions(url) {
         answers.splice(newIndex, 0, questions[i].correct_answer);
         answers = shuffle(answers);
         for(let j = 0; j < answers.length; j++){
-            let li = document.createElement('li');
-            li.innerHTML = answers[j];
-            ul.appendChild(li);
+            let div = document.createElement('div');
+            let radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'Question '+ (i+1);
+            radio.id = 'Question'+(i+1)+'_option'+(j+1);
+            let label = document.createElement('label');
+            label.innerHTML = answers[j];
+            // label.for = radio.id; //bawal daw to eh
+            label.setAttribute('for', radio.id);
+
+            if(answers[j] === questions[i].correct_answer){
+                radio.addEventListener('click', correct);
+            }
+
+            div.appendChild(radio);
+            div.appendChild(label);
+            if((j+1) % 2 === 0){
+                div.appendChild(document.createElement('br'));
+            }
+            ul.appendChild(div);
         }
         main.appendChild(ul);
     }
 }
 
 let toShuffle = ['a','b','c','d',];
+
+function correct(){
+    console.log('correct');
+}
 
 function shuffle(toShuffle){
     for(let i = 0; i < toShuffle.length; i++){
