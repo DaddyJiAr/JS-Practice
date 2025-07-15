@@ -21,7 +21,10 @@ async function fetch_questions(url) {
         p.innerHTML = (i+1) + ". " + questions[i].question;
         main.appendChild(p);
         let answers = questions[i].incorrect_answers;
-        answers.push(questions[i].correct_answer);
+        // answers.push(questions[i].correct_answer);
+        let newIndex = Math.floor(Math.random() * answers.length);
+        answers.splice(newIndex, 0, questions[i].correct_answer);
+        answers = shuffle(answers);
         for(let j = 0; j < answers.length; j++){
             let li = document.createElement('li');
             li.innerHTML = answers[j];
@@ -31,4 +34,18 @@ async function fetch_questions(url) {
     }
 }
 
-// fetch_questions(general_easy);
+let toShuffle = ['a','b','c','d',];
+
+function shuffle(toShuffle){
+    for(let i = 0; i < toShuffle.length; i++){
+        console.log("ehh");
+        let toShift = toShuffle.splice(i, 1)[0];
+        let newIndex = Math.floor(Math.random() * toShuffle.length);
+        toShuffle.splice(newIndex, 0, toShift);
+    }
+    return toShuffle;
+}
+
+// console.log("ehh");
+console.log(shuffle(toShuffle));
+fetch_questions(general_easy);
