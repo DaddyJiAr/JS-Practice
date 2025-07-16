@@ -69,4 +69,4 @@ function shuffle(toShuffle){
 
 // console.log("ehh");
 console.log(shuffle(toShuffle));
-fetch_questions(general_easy);
+// fetch_questions(general_easy);
