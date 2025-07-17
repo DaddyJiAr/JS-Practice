@@ -55,12 +55,10 @@ function correct(){
 function checkAnswers(){
     const radios = document.querySelectorAll('input[type="radio"]');
     for (let index = 0; index < radios.length; index++) {
-        // console.log(radios[index]);
         if(radios[index] === correct_answer_list[0] && radios[index].checked){
             console.log(radios[index]);
         }
     }
-    
 }
 
 fetch_questions(toShuffle);

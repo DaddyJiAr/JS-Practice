@@ -1,7 +1,7 @@
 let general_easy = 'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple';
 const main = document.getElementsByTagName('main')[0];
-
-
+let correct_answer_list = [];
+let number_of_choices = 4;
 
 async function fetch_questions(url) {
     const questions_api = await fetch(url);
@@ -15,7 +15,6 @@ async function fetch_questions(url) {
     }
     
     for(let i = 0; i < questions.length; i++){
-        console.log(questions[i]);
         let ul = document.createElement('ul');
         let p = document.createElement('p');
         p.innerHTML = (i+1) + ". " + questions[i].question;
@@ -29,6 +28,7 @@ async function fetch_questions(url) {
             let div = document.createElement('div');
             let radio = document.createElement('input');
             radio.type = 'radio';
+            console.log(i+1);
             radio.name = 'Question '+ (i+1);
             radio.id = 'Question'+(i+1)+'_option'+(j+1);
             let label = document.createElement('label');
@@ -38,6 +38,7 @@ async function fetch_questions(url) {
 
             if(answers[j] === questions[i].correct_answer){
                 radio.addEventListener('click', correct);
+                correct_answer_list.push(radio);    
             }
 
             div.appendChild(radio);
@@ -59,7 +60,6 @@ function correct(){
 
 function shuffle(toShuffle){
     for(let i = 0; i < toShuffle.length; i++){
-        console.log("ehh");
         let toShift = toShuffle.splice(i, 1)[0];
         let newIndex = Math.floor(Math.random() * toShuffle.length);
         toShuffle.splice(newIndex, 0, toShift);
@@ -67,6 +67,34 @@ function shuffle(toShuffle){
     return toShuffle;
 }
 
+function checkAnswers(){
+    let score = 0;
+    const radios = document.querySelectorAll('input[type="radio"]');
+    let radio_index = 0;
+    for (let i = 0; i < correct_answer_list.length; i++) {
+        let skip = 4;
+        for(let j = 0; j < number_of_choices; j++, radio_index++){
+            if(radios[radio_index] === correct_answer_list[i] && radios[radio_index].checked){
+                console.log(radios[i]);
+                radio_index += skip;
+                score++;
+                break;
+            }else{
+                skip--;
+            }
+        }
+    }
+    return score;
+}
+
+function displayScore(){
+    const score = checkAnswers();
+    const body = document.getElementsByTagName('body')[0];
+    const score_p = document.createElement('p');
+    score_p.innerHTML = 'Your score: ' + score;
+    body.appendChild(score_p);
+}
+
 // console.log("ehh");
 console.log(shuffle(toShuffle));
-// fetch_questions(general_easy);
+fetch_questions(general_easy);
